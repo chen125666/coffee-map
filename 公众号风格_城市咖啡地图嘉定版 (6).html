@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>城市咖啡地图｜嘉定新城（马陆镇）三家在地咖啡馆</title>
+  <style>
+    :root{
+      --bg:#f5efe7;
+      --paper:#fffaf4;
+      --ink:#2f2823;
+      --muted:#7e6d5f;
+      --accent:#b67a4f;
+      --line:#eadfd3;
+      --card-shadow:0 16px 42px rgba(93, 65, 43, .10);
+      --soft-shadow:0 8px 24px rgba(93, 65, 43, .08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(182,122,79,.12), transparent 20%),
+        radial-gradient(circle at top right, rgba(232,199,170,.18), transparent 20%),
+        linear-gradient(180deg, #fcf8f3 0%, var(--bg) 100%);
+      line-height:1.88;
+      letter-spacing:.15px;
+    }
+    .wrap{width:min(760px, 100%); margin:0 auto; padding:16px 14px 44px;}
+    .article{
+      background:rgba(255,250,244,.84);
+      border:1px solid rgba(234,223,211,.9);
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:var(--card-shadow);
+      backdrop-filter: blur(8px);
+    }
+    .hero{
+      position:relative;
+      min-height: 760px;
+      display:flex;
+      align-items:flex-end;
+      padding:28px;
+      color:#fff;
+      background:
+        linear-gradient(180deg, rgba(18,12,8,.10) 0%, rgba(18,12,8,.36) 58%, rgba(18,12,8,.68) 100%),
+        url('https://jd.storage.shmedia.tech/f8759bbe26cf4531ba2772562b25afc8') center/cover no-repeat;
+    }
+    .hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 42%, rgba(0,0,0,.14)); pointer-events:none;}
+    .hero-inner{position:relative; z-index:1; width:100%;}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 14px; border-radius:999px;
+      background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.18);
+      font-size:12px; letter-spacing:1.6px; text-transform:uppercase; backdrop-filter: blur(10px);
+    }
+    .hero h1{margin:16px 0 10px; font-size:clamp(34px, 8vw, 58px); line-height:1.06; letter-spacing:.5px; max-width: 10em;}
+    .hero p{margin:0; font-size:clamp(16px, 2.6vw, 19px); max-width: 34em; opacity:.95;}
+    .meta-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+    .pill{padding:7px 12px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); font-size:12px;}
+    .section{padding:28px 22px; border-top:1px solid var(--line);}
+    .section.intro{background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(249,242,235,.86));}
+    .kicker{color:var(--accent); font-size:12px; letter-spacing:2px; font-weight:700; margin-bottom:10px;}
+    .lead{margin:0; font-size:18px;}
+    .pullquote{margin:18px 0 0; padding:18px 18px 18px 20px; border-left:4px solid var(--accent); background:linear-gradient(90deg, rgba(182,122,79,.08), rgba(182,122,79,.02)); border-radius:16px; color:#4a3d34; font-size:16px;}
+    .divider{display:flex; align-items:center; gap:12px; margin:22px 0 0; color:var(--muted); font-size:12px; letter-spacing:1.5px; text-transform:uppercase;}
+    .divider::before,.divider::after{content:""; height:1px; flex:1; background:linear-gradient(90deg, transparent, rgba(126,109,95,.35), transparent);}
+    .spot{padding:0;}
+    .spot-head{padding:28px 22px 18px;}
+    .spot-head h2{margin:0; font-size:30px; line-height:1.12;}
+    .spot-head .label{display:inline-block; margin-top:10px; padding:6px 10px; border-radius:999px; background:rgba(182,122,79,.08); border:1px solid rgba(182,122,79,.18); color:var(--accent); font-size:12px; font-weight:700; letter-spacing:1px;}
+    .hero-image{width:100%; aspect-ratio:16 / 11; background:center/cover no-repeat; border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative;}
+    .hero-image::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 68%, rgba(20,12,8,.24) 100%);}
+    .spot-body{padding:22px; display:grid; gap:14px;}
+    .meta-line{display:flex; flex-wrap:wrap; gap:10px 12px; color:var(--muted); font-size:13px; padding-bottom:6px;}
+    .meta-line span{padding:6px 10px; background:rgba(244,236,228,.8); border:1px solid rgba(234,223,211,.9); border-radius:999px;}
+    .grid{display:grid; gap:12px;}
+    .info{padding:16px 16px 17px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(244,236,228,.7)); border:1px solid var(--line); box-shadow:var(--soft-shadow);}
+    .info h3{margin:0 0 6px; font-size:17px; color:#4b3f36;}
+    .info p{margin:0; color:#5f5247; font-size:15px;}
+    .ending{background:linear-gradient(180deg, rgba(182,122,79,.07), rgba(255,255,255,.95));}
+    .ending .quote-2{margin:18px 0 0; padding:18px 18px 18px 20px; border-left:4px solid var(--accent); background:linear-gradient(90deg, rgba(182,122,79,.07), rgba(182,122,79,.02)); border-radius:16px; font-size:16px;}
+    .footer{text-align:center; color:#8a796b; font-size:12px; padding:18px 8px 0;}
+    @media (max-width: 720px){
+      .wrap{padding:10px}
+      .hero{min-height: 640px; padding:20px}
+      .section{padding:22px 16px}
+      .spot-head{padding:22px 16px 14px}
+      .spot-head h2{font-size:26px}
+      .hero h1{max-width: 100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="article">
+      <header class="hero">
+        <div class="hero-inner">
+          <div class="eyebrow">CITY COFFEE MAP · JIADING</div>
+          <h1>在一杯咖啡里，读懂嘉定新城的慢与热</h1>
+          <p>城市咖啡地图系列首刊｜探店上海嘉定新城（马陆镇）三家最具“在地风味”的独立咖啡馆</p>
+          <div class="meta-row">
+            <span class="pill">长图公众号风</span>
+            <span class="pill">杂志感留白</span>
+            <span class="pill">奶咖色系</span>
+            <span class="pill">封面图不变</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="section intro">
+        <div class="kicker">OPENING</div>
+        <p class="lead">如果说一座城市有气味，那嘉定新城（马陆镇）的气味，大概是清晨刚萃开的咖啡香，混着稻田的草木气、展厅的安静感，以及社区里不疾不徐的日常节奏。</p>
+        <p class="pullquote">这一次，我们把脚步留给三家最能代表这里气质的咖啡空间：藏在美术馆里的 Max咖啡，位于嘉北郊野公园的沸舍乡村俱乐部，以及人气很高的一尺花园（金府店）。</p>
+        <div class="divider">COFFEE / CULTURE / COMMUNITY</div>
+      </section>
+
+      <section class="section spot">
+        <div class="spot-head">
+          <h2>01 Max咖啡花园餐厅</h2>
+          <div class="label">嘉定镇西餐 · 3.9分</div>
+        </div>
+        <div class="hero-image" style="background-image:url('http://p0.meituan.net/merchant/2b06312d66e69999fd64c76b77f5ed1e7243452.png@750w_1e_1l|watermark=0.webp');"></div>
+        <div class="spot-body">
+          <div class="meta-line">
+            <span>嘉定镇西餐</span>
+            <span>城北路1818号上海金融谷园区A区01栋</span>
+            <span>营业中 10:00-20:00</span>
+            <span>¥101/人</span>
+          </div>
+          <div class="grid">
+            <div class="info">
+              <h3>空间与主理人故事</h3>
+              <p>Max咖啡花园餐厅把咖啡、轻餐和花园氛围放在同一个空间里，适合日常停留，也适合周末来拍一组松弛感照片。</p>
+            </div>
+            <div class="info">
+              <h3>特色饮品 / 食品</h3>
+              <p>可搭配西餐轻食、甜品和咖啡，适合做成一顿完整的午后简餐。整体气质偏舒适家常，适合朋友聚餐或安静休息。</p>
+            </div>
+            <div class="info">
+              <h3>大众点评 / 评分信息</h3>
+              <p>口味 3.9，环境 3.9，服务 3.9；共 567 条评价，人均约 ¥101/人。门店提供付费停车，另有宝宝椅，也可带宠物。</p>
+            </div>
+            <div class="info">
+              <h3>与社区的连接</h3>
+              <p>作为园区里的休憩空间，它把工作、聚会和轻餐饮连接起来，让咖啡馆变成附近人群可日常进入的生活场景。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section spot">
+        <div class="spot-head">
+          <h2>02 一尺花园（金府店）</h2>
+          <div class="label">嘉定新城咖啡 · 4.5分</div>
+        </div>
+        <div class="hero-image" style="background-image:url('https://qcloud.dpfile.com/pc/eDSNPZYGR-byHi57bA1VX903dEsoP5St7epo3LO-f-lkZrlYqA9V99dLWa72C4ak_rmkDar_7uWkREVD3Q9cfjBdApxUyvX0xAZ0By9OkEc.webp');"></div>
+        <div class="spot-body">
+          <div class="meta-line">
+            <span>嘉定新城咖啡</span>
+            <span>裕民南路1771弄56号</span>
+            <span>位于西云楼内</span>
+            <span>营业中 10:00-21:00</span>
+          </div>
+          <div class="grid">
+            <div class="info">
+              <h3>空间与主理人故事</h3>
+              <p>一尺花园（金府店）延续了品牌一贯的自然系审美，店内空间和西云楼街区氛围很契合，适合拍照、会友和慢慢坐一下午。</p>
+            </div>
+            <div class="info">
+              <h3>特色饮品 / 食品</h3>
+              <p>推荐拿铁、卡布基诺等咖啡类饮品，也可以搭配店内甜品和轻食。这里的出品稳定，适合做一篇“颜值+口味”兼顾的探店内容。</p>
+            </div>
+            <div class="info">
+              <h3>大众点评 / 评分信息</h3>
+              <p>口味 4.4，环境 4.6，服务 4.4；共 6318 条评价，人均约 ¥95/人。门店有大桌、付费停车和宝宝椅，且是嘉定区咖啡热门榜第1名。</p>
+            </div>
+            <div class="info">
+              <h3>与社区的连接</h3>
+              <p>它把咖啡馆、街区与日常消费连接起来，是嘉定新城里很典型的“可以久坐”的社区型咖啡空间。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section spot">
+        <div class="spot-head">
+          <h2>03 沸舍乡村俱乐部·咖啡馆·生日party·商拍</h2>
+          <div class="label">外冈镇商圈咖啡 · 4.4分</div>
+        </div>
+        <div class="hero-image" style="background-image:url('https://p0.meituan.net/biztone/2648302910fd11d93b6c5806d7296b9f1168770.jpg@750w_1e_1l|watermark=0.webp');"></div>
+        <div class="spot-body">
+          <div class="meta-line">
+            <span>嘉北郊野公园沸舍乡村俱乐部</span>
+            <span>外冈镇商圈咖啡</span>
+            <span>营业中 09:00-18:00</span>
+            <span>¥42/人</span>
+          </div>
+          <div class="grid">
+            <div class="info">
+              <h3>空间与主理人故事</h3>
+              <p>沸舍乡村俱乐部把郊野感和咖啡馆结合起来，空间适合生日聚会、商拍和休闲停留，整体氛围更松弛，也更适合拍环境图。</p>
+            </div>
+            <div class="info">
+              <h3>特色饮品 / 食品</h3>
+              <p>适合点一杯咖啡搭配简餐或下午茶，重点是“在风景里喝咖啡”的体验。户外空间和低消费门槛让它很适合半日游。</p>
+            </div>
+            <div class="info">
+              <h3>大众点评 / 评分信息</h3>
+              <p>口味 4.4，环境 4.4，服务 4.4；共 190 条评价，人均约 ¥42/人。门店有大桌、免费停车和宝宝椅，并位列外冈镇商圈咖啡热门榜第1名。</p>
+            </div>
+            <div class="info">
+              <h3>与社区的连接</h3>
+              <p>它更像一处郊野社交客厅，把亲友聚会、拍照需求和乡村风景融为一体，形成了轻松的社区型消费场景。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ending">
+        <div class="spot-head" style="padding:0 0 6px;">
+          <h2>结尾</h2>
+          <div class="label">探店总结</div>
+        </div>
+        <p class="lead">这一趟嘉定新城（马陆镇）的咖啡地图，喝到的不只是三杯咖啡，更是一种很有温度的地方感。Max咖啡把轻餐和园区生活结合在一起，一尺花园（金府店）延续了街区咖啡的高人气，沸舍乡村俱乐部则把郊野空间变成了可停留、可拍照、可聚会的生活场景。</p>
+        <p class="quote-2">好的咖啡馆，不只是卖咖啡，而是在替一座城市保存气质、连接人群、安放生活。</p>
+      </section>
+    </article>
+
+    <div class="footer">城市咖啡地图系列｜嘉定新城（马陆镇）</div>
+  </div>
+</body>
+</html>
